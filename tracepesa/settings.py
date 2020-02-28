@@ -24,7 +24,7 @@ SECRET_KEY = 'sy4c#tewyj5h_3ag9_kuf=!99w))ujy$+5cwimwr65qf#n^xow'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['tracepesa-env.ruvp4fmtsp.us-west-2.elasticbeanstalk.com']
+ALLOWED_HOSTS = ['tracepesa-env.ruvp4fmtsp.us-west-2.elasticbeanstalk.com', '127.0.0.1']
 
 # Application definition
 
@@ -89,7 +89,6 @@ else:
             'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
         }
     }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
