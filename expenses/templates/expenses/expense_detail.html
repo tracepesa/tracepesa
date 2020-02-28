@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <div class="content">
+        <div class="row">
+            <div class="col col-md-6 col-sm-8 mt-2">
+                <fieldset class="form-group">
+                    <legend class="border-bottom mb-4"> Expense detail</legend>
+                    <p >Amount: {{ expense.amount }}</p>
+                    <p >Description: {{ expense.description }}</p>
+                    <p >Date created: {{ expense.date_created|date:'Y M, d' }}</p>
+                </fieldset>
+                <div class="form-group">
+                    <a href="{% url 'expense_update' expense.id %}" class="btn btn-outline-info">Edit</a>
+                    <a href="{% url 'expense_delete' expense.id %}" class="btn btn-outline-danger ">Delete</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

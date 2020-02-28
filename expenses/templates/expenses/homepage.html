@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col col-md-12 col-sm-8 mt-2 mb-2">
+                <form action="{% url 'expense_add' %}" method="post">
+                    {% csrf_token %}
+                    <div class="form-row align-items-center">
+                        <div class="col-sm-12 my-1">
+
+                            <div class="input-group">
+                                <input type="text" name="amount" class="form-control" id="amount"
+                                       placeholder="Enter expenses...">
+
+                                <input type="text" name="description" class="form-control" id="description"
+                                       placeholder="Description...">
+                                <div class="input-group-prepend">
+                                    <button type="submit" class="btn btn-info">Add</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+                <h4 class="mt-2">My expenses</h4>
+
+                <table class="table table-borderless mt-4">
+                    <tbody>
+                    {% for expense in expenses %}
+                        <tr>
+                            <td>
+                                <div class="list-group">
+                                    <a href="{% url 'expense_detail' expense.id %}"
+                                       class="list-group-item list-group-item-action flex-column align-items-start">
+                                        <div class="d-flex w-100 justify-content-between">
+                                            <h5 class="mb-1">{{ expense.amount }}</h5>
+                                            <small class="text-muted">{{ expense.date_created|date:'Y M, d' }}</small>
+                                        </div>
+                                        <p class="mb-1">{{ expense.description }}</p>
+                                        <span class="badge badge-info">{{ expense.category.name }}</span>
+                                    </a>
+
+                                </div>
+                                {#                                <div class="card" style="width: 100%;">#}
+                                {#                                    <div class="card-body">#}
+                                {#                                        <div>#}
+                                {#                                            <a href="{% url 'expense_detail' expense.id %}"><h5#}
+                                {#                                                    class="card-title">{{ expense.amount }}</h5></a>#}
+                                {#                                            <p class="pull-right">{{ expense.category.name }}</p>#}
+                                {#                                        </div>#}
+                                {#                                        <p class="card-text">#}
+                                {#                                            <small class="text-muted">Created#}
+                                {#                                                at {{ expense.date_created|date:'Y M, d' }}</small>#}
+                                {#                                        </p>#}
+                                {#                                        <p class="card-text">{{ expense.description }}</p>#}
+                                {#                                        <a href="{% url 'expense_delete' expense.id %}"#}
+                                {#                                           class="btn btn-outline-danger float-right">Delete</a>#}
+                                {#                                        <a href="{% url 'expense_update' expense.id %}"#}
+                                {#                                           class="btn btn-outline-primary float-left">Edit</a>#}
+                                {#                                    </div>#}
+                                {#                                </div>#}
+
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                <div class="container text-center">
+                    {% if is_paginated %}
+
+                        {% if page_obj.has_previous %}
+                            <a class="btn btn-outline-info mb-4" href="?page=1">First</a>
+                            <a class="btn btn-outline-info mb-4"
+                               href="?page={{ page_obj.previous_page_number }}">Previous</a>
+                        {% endif %}
+
+                        {% for num in page_obj.paginator.page_range %}
+
+                            {% if num == page_obj.number %}
+                                <a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
+                            {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                                <a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
+                            {% endif %}
+                        {% endfor %}
+
+                        {% if page_obj.has_next %}
+                            <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}">Next</a>
+                            <a class="btn btn-outline-info mb-4"
+                               href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+                        {% endif %}
+
+                        <span class="current text-muted mb-4">
+        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+        </span>
+
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

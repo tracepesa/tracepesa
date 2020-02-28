@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <div class="content">
+        <div class="row">
+            <div class="col col-md-6 col-sm-8 mt-2">
+                <form method="post">
+                    {% csrf_token %}
+                    <fieldset class="form-group">
+                        <legend class="border-bottom mb-4"> Confirm delete</legend>
+                        <h5>Do you really want to delete this expense?</h5><br>
+                        <p>Amount: {{ expense.amount }}</p>
+                        <p>Description: {{ expense.description }}</p>
+                        <p>Date created: {{ expense.date_created|date:'Y M, d' }}</p>
+                    </fieldset>
+                    <button type="submit" class="btn btn-outline-danger">Delete</button>
+                    <a href="{% url 'homepage' %}" class="btn btn-outline-primary">Cancel</a>
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
