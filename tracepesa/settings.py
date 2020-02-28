@@ -34,7 +34,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles',
+    'django.contrib.www',
     'expenses',
     'crispy_forms',
 ]
@@ -126,6 +126,6 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = os.path.join(BASE_DIR, "..", "www", "static")
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
