@@ -24,7 +24,10 @@ SECRET_KEY = 'sy4c#tewyj5h_3ag9_kuf=!99w))ujy$+5cwimwr65qf#n^xow'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['tracepesa-env.ruvp4fmtsp.us-west-2.elasticbeanstalk.com', '127.0.0.1']
+if 'PRODUCTION' in os.environ:
+    ALLOWED_HOSTS = ['tracepesa-env.ruvp4fmtsp.us-west-2.elasticbeanstalk.com', 'www.tracepesa.com']
+else:
+    ALLOWED_HOSTS = []
 
 # Application definition
 
